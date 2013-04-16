@@ -1,0 +1,22 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"); /* set default namespace to XUL */
+@namespace html url("http://www.w3.org/1999/xhtml"); /* namespace for HTML elements */
+@namespace xbl url("http://www.mozilla.org/xbl"); /* namespace for XBL elements */
+
+geolocateraddress {
+  -moz-binding: url('chrome://geolocater/content/bindings/address.xml#view');
+}
+geolocateraddress[editable="true"] {
+  -moz-binding: url('chrome://geolocater/content/bindings/address.xml#edit');
+}
+geolocateraccuracy {
+  -moz-binding: url('chrome://geolocater/content/bindings/accuracy.xml#default');
+}
+
+notification[value="geolocation"] {
+  -moz-binding: url('chrome://geolocater/content/bindings/notification.xml#geolocation');
+}
+
+/* For Firefox 4.0 */
+#geolocation-notification {
+  -moz-binding: url('chrome://geolocater/content/bindings/notification.xml#popup') !important;
+}

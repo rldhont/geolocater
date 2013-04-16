@@ -1,0 +1,109 @@
+toolbarbutton {
+  margin:0.4em;
+  border:1px solid grey;
+  border-radius:5px;
+  padding:0;
+  max-width:32px;
+  min-width:32px;
+}
+
+toolbarbutton:hover {
+  background-color:#E1E1E1;
+}
+
+.toolbarbutton-icon {
+  margin: 2px 0px 2px 0px !important;
+  padding: 0 !important;
+  border:0;
+}
+
+.map-frame {
+  background-color: white;
+  border: solid 1px black;
+}
+
+.new-loc {
+  list-style-image: url("chrome://geolocater/skin/images/new-loc.png");
+}
+
+.edit-loc {
+  list-style-image: url("chrome://geolocater/skin/images/edit-loc.png");
+}
+
+.edit-loc[disabled="true"] {
+  list-style-image: url("chrome://geolocater/skin/images/edit-loc-disabled.png");
+}
+
+.del-loc {
+  list-style-image: url("chrome://geolocater/skin/images/del-loc.png");
+}
+
+.del-loc[disabled="true"] {
+  list-style-image: url("chrome://geolocater/skin/images/del-loc-disabled.png");
+}
+
+.cancel-loc {
+  list-style-image: url("chrome://geolocater/skin/images/cancel-loc.png");
+}
+
+.switch-loc {
+  list-style-image: url("chrome://geolocater/skin/images/switch-loc.png");
+}
+
+.switch-loc[type="go"] {
+  list-style-image: url("chrome://geolocater/skin/images/go-loc.png");
+}
+
+.switch-loc[type="back"] {
+  list-style-image: url("chrome://geolocater/skin/images/back-loc.png");
+}
+
+.sel-loc[disabled="true"] {
+  list-style-image: url("chrome://geolocater/skin/images/sel-loc-disabled.png");
+}
+
+.save-loc {
+  list-style-image: url("chrome://geolocater/skin/images/save-loc.png");
+}
+
+.save-loc[disabled="true"] {
+  list-style-image: url("chrome://geolocater/skin/images/save-loc-disabled.png");
+}
+
+.move-loc {
+  list-style-image: url("chrome://geolocater/skin/images/move-loc.png");
+}
+
+.search-loc {
+  list-style-image: url("chrome://geolocater/skin/images/search-loc.png");
+}
+
+.pan-map {
+  list-style-image: url("chrome://geolocater/skin/images/pan-map.png");
+}
+
+.zoom-in {
+  list-style-image: url("chrome://geolocater/skin/images/zoom-in.png");
+}
+
+.zoom-out {
+  list-style-image: url("chrome://geolocater/skin/images/zoom-out.png");
+}
+
+.zoom-extent {
+  list-style-image: url("chrome://geolocater/skin/images/zoom-extent.png");
+}
+
+.zoom-select {
+  list-style-image: url("chrome://geolocater/skin/images/zoom-select.png");
+}
+
+.zoom-select[disabled="true"] {
+  list-style-image: url("chrome://geolocater/skin/images/zoom-select-disabled.png");
+}
+
+#googleservice.error {
+  background-image: url("chrome://geolocater/skin/images/error.png");
+  background-repeat:no-repeat;
+  background-position:right center;
+}

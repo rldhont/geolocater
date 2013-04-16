@@ -1,0 +1,556 @@
+<?xml version="1.0"?>
+
+<!--
+/****** BEGIN LICENSE BLOCK *****
+ Version: MPL 1.1/GPL 2.0/LGPL 2.1
+
+ The contents of this file are subject to the Mozilla Public License Version
+ 1.1 (the "License"); you may not use this file except in compliance with
+ the License. You may obtain a copy of the License at 
+ http://www.mozilla.org/MPL/
+
+ Software distributed under the License is distributed on an "AS IS" basis,
+ WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ for the specific language governing rights and limitations under the
+ License.
+
+ The Original Code is 3liz code,
+
+ The Initial Developer of the Original Code is René-Luc D'Hont rldhont@3liz.com
+ Portions created by the Initial Developer are Copyright (C) 2009
+ the Initial Developer. All Rights Reserved.
+
+ Some Parts of the Code are taken from the original Mozilla Firefox and/or XulRunner Code. 
+ If these parts were subject to a licence not in compliance with the License, 
+ it is not intentionnal and please contact the Initial Developer.
+
+ Alternatively, the contents of this file may be used under the terms of
+ either of the GNU General Public License Version 2 or later (the "GPL"),
+ or the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+ in which case the provisions of the GPL or the LGPL are applicable instead
+ of those above. If you wish to allow use of your version of this file only
+ under the terms of either the GPL or the LGPL, and not to allow others to
+ use your version of this file under the terms of the MPL, indicate your
+ decision by deleting the provisions above and replace them with the notice
+ and other provisions required by the GPL or the LGPL. If you do not delete
+ the provisions above, a recipient may use your version of this file under
+ the terms of any one of the MPL, the GPL or the LGPL.
+
+ ***** END LICENSE BLOCK ***** */
+-->
+
+<!DOCTYPE bindings SYSTEM "chrome://geolocater/locale/bindings.dtd">
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+  xmlns:xbl="http://www.mozilla.org/xbl"
+  xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <binding id="view">
+    <content>
+      <xul:groupbox flex="1">
+        <xul:caption label="&address.caption.label;" xbl:inherits="label"/>
+        <xul:grid flex="1">
+          <xul:columns>
+            <xul:column/>
+            <xul:column flex="1"/>
+          </xul:columns>
+          <xul:rows>
+            <xul:row>
+              <xul:hbox align="center" pack="end">
+                <xul:label value="&address.streetNumber;"/>
+              </xul:hbox>
+              <xul:label anonid="streetNumber"
+                crop="end"
+                xbl:inherits="value=streetnumber"/>
+            </xul:row>
+            <xul:row>
+              <xul:hbox align="center" pack="end">
+                <xul:label value="&address.street;"/>
+              </xul:hbox>
+              <xul:label anonid="street"
+                crop="end"
+                xbl:inherits="value=street"/>
+            </xul:row>
+            <xul:row>
+              <xul:hbox align="center" pack="end">
+                <xul:label value="&address.premises;"/>
+              </xul:hbox>
+              <xul:label anonid="premises"
+                crop="end"
+                xbl:inherits="value=premises"/>
+            </xul:row>
+            <xul:row>
+              <xul:hbox align="center" pack="end">
+                <xul:label value="&address.postalCode;"/>
+              </xul:hbox>
+              <xul:label anonid="postalCode"
+                crop="end"
+                xbl:inherits="value=postalcode"/>
+            </xul:row>
+            <xul:row>
+              <xul:hbox align="center" pack="end">
+                <xul:label value="&address.city;"/>
+              </xul:hbox>
+              <xul:label anonid="city"
+                crop="end"
+                xbl:inherits="value=city"/>
+            </xul:row>
+            <xul:row>
+              <xul:hbox align="center" pack="end">
+                <xul:label value="&address.county;"/>
+              </xul:hbox>
+              <xul:label anonid="county"
+                crop="end"
+                xbl:inherits="value=county"/>
+            </xul:row>
+            <xul:row>
+              <xul:hbox align="center" pack="end">
+                <xul:label value="&address.region;"/>
+              </xul:hbox>
+              <xul:label anonid="region"
+                crop="end"
+                xbl:inherits="value=region"/>
+            </xul:row>
+            <xul:row>
+              <xul:hbox align="center" pack="end">
+                <xul:label value="&address.country;"/>
+              </xul:hbox>
+              <xul:hbox anonid="countryCode" align="center"
+                datasources="http://ws.geonames.org/countryInfo?"
+                ref="*" querytype="xml">
+                <xul:template>
+                  <xul:query anonid="countryQuery"
+                    expr="country[countryCode='-']">
+                    <xul:assign var="?name" expr="countryName"/>
+                    <xul:assign var="?code" expr="countryCode"/>
+                  </xul:query>
+                  <xul:action>
+                    <xul:label uri="?" crop="end"
+                      value="?code - ?name"/>
+                  </xul:action>
+                </xul:template>
+              </xul:hbox>
+            </xul:row>
+          </xul:rows>
+        </xul:grid>
+      </xul:groupbox>
+    </content>
+    <implementation>
+      <property name="streetNumber">
+        <getter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'streetNumber');
+          return elem.value;
+        </getter>
+        <setter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'streetNumber');
+          return elem.value = val;
+        </setter>
+      </property>
+      <property name="street">
+        <getter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'street');
+          return elem.value;
+        </getter>
+        <setter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'street');
+          return elem.value = val;
+        </setter>
+      </property>
+      <property name="premises">
+        <getter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'premises');
+          return elem.value;
+        </getter>
+        <setter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'premises');
+          return elem.value = val;
+        </setter>
+      </property>
+      <property name="city">
+        <getter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'city');
+          return elem.value;
+        </getter>
+        <setter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'city');
+          return elem.value = val;
+        </setter>
+      </property>
+      <property name="county">
+        <getter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'county');
+          return elem.value;
+        </getter>
+        <setter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'county');
+          return elem.value = val;
+        </setter>
+      </property>
+      <property name="region">
+        <getter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'region');
+          return elem.value;
+        </getter>
+        <setter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'region');
+          return elem.value = val;
+        </setter>
+      </property>
+      <property name="postalCode">
+        <getter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'postalCode');
+          return elem.value;
+        </getter>
+        <setter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'postalCode');
+          return elem.value = val;
+        </setter>
+      </property>
+      <property name="countryCode">
+        <getter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'countryCode');
+          return elem.value;
+        </getter>
+        <setter>
+          <![CDATA[
+            var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'countryCode');
+            var query = document.getAnonymousElementByAttribute(this,
+                                                            'anonid',
+                                                            'countryQuery');
+            query.setAttribute("expr","country[countryCode='"+val+"']");
+            if (elem.builder.datasource != null)
+              elem.builder.rebuild();
+            return elem.value = val;
+          ]]>
+        </setter>
+      </property>
+      <property name="country" readonly="true">
+        <getter>
+          <![CDATA[
+          if (this.countryCode == '-')
+            return '';
+
+          var req = new XMLHttpRequest();
+          req.onload = null;
+          req.open('GET',
+            'http://ws.geonames.org/countryInfo?country='+this.countryCode,
+            false);
+          req.send(null);
+          if (req.status != 200)
+            return '';
+          alert(req.responseText);
+
+          var xmlDoc = req.responseXML;
+          var nsResolver = xmlDoc.createNSResolver( xmlDoc.ownerDocument == null ? xmlDoc.documentElement : xmlDoc.ownerDocument.documentElement);
+          var results = xmlDoc.evaluate('//country/countryName', xmlDoc, nsResolver, XPathResult.FIRST_ORDERED_NODE_TYPE, null );
+          if (results.length == 0)
+            return '';
+
+          return results.singleNodeValue.textContent;
+          ]]>
+        </getter>
+      </property>
+    </implementation>
+    <handlers>
+      <handler event="DOMAttrModified">
+        if (event.attrName == 'streetnumber')
+          this.streetNumber = event.attrChange
+        if (event.attrName == 'street')
+          this.street = event.attrChange
+        if (event.attrName == 'premises')
+          this.premises = event.attrChange
+        if (event.attrName == 'city')
+          this.city = event.attrChange
+        if (event.attrName == 'county')
+          this.county = event.attrChange
+        if (event.attrName == 'region')
+          this.region = event.attrChange
+        if (event.attrName == 'postalcode')
+          this.postalCode = event.attrChange
+        if (event.attrName == 'countrycode')
+          this.countryCode = event.attrChange
+      </handler>
+    </handlers>
+  </binding>
+
+  <binding id="edit">
+    <content>
+      <xul:groupbox flex="1">
+        <xul:caption label="&address.caption.label;" xbl:inherits="label"/>
+        <xul:grid flex="1">
+          <xul:columns>
+            <xul:column/>
+            <xul:column flex="1"/>
+          </xul:columns>
+          <xul:rows>
+            <xul:row>
+              <xul:hbox align="center" pack="end">
+                <xul:label value="&address.streetNumber;"/>
+              </xul:hbox>
+              <xul:textbox anonid="streetNumber"
+                xbl:inherits="value=streetnumber"/>
+            </xul:row>
+            <xul:row>
+              <xul:hbox align="center" pack="end">
+                <xul:label value="&address.street;"/>
+              </xul:hbox>
+              <xul:textbox anonid="street"
+                xbl:inherits="value=street"/>
+            </xul:row>
+            <xul:row>
+              <xul:hbox align="center" pack="end">
+                <xul:label value="&address.premises;"/>
+              </xul:hbox>
+              <xul:textbox anonid="premises"
+                xbl:inherits="value=premises"/>
+            </xul:row>
+            <xul:row>
+              <xul:hbox align="center" pack="end">
+                <xul:label value="&address.postalCode;"/>
+              </xul:hbox>
+              <xul:textbox anonid="postalCode"
+                xbl:inherits="value=postalcode"/>
+            </xul:row>
+            <xul:row>
+              <xul:hbox align="center" pack="end">
+                <xul:label value="&address.city;"/>
+              </xul:hbox>
+              <xul:textbox anonid="city"
+                xbl:inherits="value=city"/>
+            </xul:row>
+            <xul:row>
+              <xul:hbox align="center" pack="end">
+                <xul:label value="&address.county;"/>
+              </xul:hbox>
+              <xul:textbox anonid="county"
+                xbl:inherits="value=county"/>
+            </xul:row>
+            <xul:row>
+              <xul:hbox align="center" pack="end">
+                <xul:label value="&address.region;"/>
+              </xul:hbox>
+              <xul:textbox anonid="region"
+                xbl:inherits="value=region"/>
+            </xul:row>
+            <xul:row>
+              <xul:hbox align="center" pack="end">
+                <xul:label value="&address.country;"/>
+              </xul:hbox>
+              <xul:menulist anonid="countryCode"
+                value="-" sizetopopup="always"
+                xbl:inherits="value=countrycode">
+                <xul:menupopup height="200" maxwidth="100"
+                  datasources="http://ws.geonames.org/countryInfo?"
+                  ref="*" querytype="xml">
+                  <xul:template>
+                    <xul:query expr="country">
+                      <xul:assign var="?name" expr="countryName"/>
+                      <xul:assign var="?code" expr="countryCode"/>
+                    </xul:query>
+                    <xul:action>
+                      <xul:menuitem uri="?"
+                        label="?code - ?name" value="?code"/>
+                    </xul:action>
+                  </xul:template>
+                  <xul:menuitem label="-" value="-"/>
+                </xul:menupopup>
+              </xul:menulist>
+            </xul:row>
+          </xul:rows>
+        </xul:grid>
+      </xul:groupbox>
+    </content>
+    <implementation>
+      <property name="streetNumber">
+        <getter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'streetNumber');
+          return elem.value;
+        </getter>
+        <setter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'streetNumber');
+          return elem.value = val;
+        </setter>
+      </property>
+      <property name="street">
+        <getter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'street');
+          return elem.value;
+        </getter>
+        <setter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'street');
+          return elem.value = val;
+        </setter>
+      </property>
+      <property name="premises">
+        <getter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'premises');
+          return elem.value;
+        </getter>
+        <setter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'premises');
+          return elem.value = val;
+        </setter>
+      </property>
+      <property name="city">
+        <getter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'city');
+          return elem.value;
+        </getter>
+        <setter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'city');
+          return elem.value = val;
+        </setter>
+      </property>
+      <property name="county">
+        <getter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'county');
+          return elem.value;
+        </getter>
+        <setter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'county');
+          return elem.value = val;
+        </setter>
+      </property>
+      <property name="region">
+        <getter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'region');
+          return elem.value;
+        </getter>
+        <setter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'region');
+          return elem.value = val;
+        </setter>
+      </property>
+      <property name="postalCode">
+        <getter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'postalCode');
+          return elem.value;
+        </getter>
+        <setter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'postalCode');
+          return elem.value = val;
+        </setter>
+      </property>
+      <property name="countryCode">
+        <getter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'countryCode');
+          return elem.value;
+        </getter>
+        <setter>
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'countryCode');
+          return elem.value = val;
+        </setter>
+      </property>
+      <property name="country" readonly="true">
+        <getter>
+          <![CDATA[
+          if (this.countryCode == '-')
+            return '';
+
+          var req = new XMLHttpRequest();
+          req.onload = null;
+          req.open('GET',
+            'http://ws.geonames.org/countryInfo?country='+this.countryCode,
+            false);
+          req.send(null);
+          if (req.status != 200)
+            return '';
+          alert(req.responseText);
+
+          var xmlDoc = req.responseXML;
+          var nsResolver = xmlDoc.createNSResolver( xmlDoc.ownerDocument == null ? xmlDoc.documentElement : xmlDoc.ownerDocument.documentElement);
+          var results = xmlDoc.evaluate('//country/countryName', xmlDoc, nsResolver, XPathResult.FIRST_ORDERED_NODE_TYPE, null );
+          if (results.length == 0)
+            return '';
+
+          return results.singleNodeValue.textContent;
+          ]]>
+        </getter>
+      </property>
+    </implementation>
+    <handlers>
+      <handler event="DOMAttrModified">
+        if (event.attrName == 'streetnumber')
+          this.streetNumber = event.attrChange
+        if (event.attrName == 'street')
+          this.street = event.attrChange
+        if (event.attrName == 'premises')
+          this.premises = event.attrChange
+        if (event.attrName == 'city')
+          this.city = event.attrChange
+        if (event.attrName == 'county')
+          this.county = event.attrChange
+        if (event.attrName == 'region')
+          this.region = event.attrChange
+        if (event.attrName == 'postalcode')
+          this.postalCode = event.attrChange
+        if (event.attrName == 'countrycode')
+          this.countryCode = event.attrChange
+      </handler>
+    </handlers>
+  </binding>
+</bindings>

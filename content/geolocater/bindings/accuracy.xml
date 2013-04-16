@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+
+<!--
+/****** BEGIN LICENSE BLOCK *****
+ Version: MPL 1.1/GPL 2.0/LGPL 2.1
+
+ The contents of this file are subject to the Mozilla Public License Version
+ 1.1 (the "License"); you may not use this file except in compliance with
+ the License. You may obtain a copy of the License at 
+ http://www.mozilla.org/MPL/
+
+ Software distributed under the License is distributed on an "AS IS" basis,
+ WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ for the specific language governing rights and limitations under the
+ License.
+
+ The Original Code is 3liz code,
+
+ The Initial Developer of the Original Code is René-Luc D'Hont rldhont@3liz.com
+ Portions created by the Initial Developer are Copyright (C) 2009
+ the Initial Developer. All Rights Reserved.
+
+ Some Parts of the Code are taken from the original Mozilla Firefox and/or XulRunner Code. 
+ If these parts were subject to a licence not in compliance with the License, 
+ it is not intentionnal and please contact the Initial Developer.
+
+ Alternatively, the contents of this file may be used under the terms of
+ either of the GNU General Public License Version 2 or later (the "GPL"),
+ or the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+ in which case the provisions of the GPL or the LGPL are applicable instead
+ of those above. If you wish to allow use of your version of this file only
+ under the terms of either the GPL or the LGPL, and not to allow others to
+ use your version of this file under the terms of the MPL, indicate your
+ decision by deleting the provisions above and replace them with the notice
+ and other provisions required by the GPL or the LGPL. If you do not delete
+ the provisions above, a recipient may use your version of this file under
+ the terms of any one of the MPL, the GPL or the LGPL.
+
+ ***** END LICENSE BLOCK ***** */
+-->
+
+<!DOCTYPE bindings SYSTEM "chrome://geolocater/locale/bindings.dtd">
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+  xmlns:xbl="http://www.mozilla.org/xbl"
+  xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <binding id="default">
+    <content>
+      <xul:vbox flex="1">
+        <xul:hbox>
+          <xul:label value="&accuracy.name.label;"/>
+          <xul:spacer flex="1"/>
+          <xul:label anonid="label" value="0"/>
+          <xul:label value="&accuracy.unit.label;"/>
+        </xul:hbox>
+        <xul:toolbox>
+          <xul:toolbar>
+            <xul:toolbarbutton label="-" width="35" 
+              oncommand="this.nextSibling.decrease();"/>
+            <xul:scale anonid="scale"
+              min="0" max="8"
+              flex="1"/>
+            <xul:toolbarbutton label="+" width="35"
+              oncommand="this.previousSibling.increase();"/>
+          </xul:toolbar>
+        </xul:toolbox>
+      </xul:vbox>
+    </content>
+    <implementation>
+      <field name="_scale">null</field>
+      <property name="scale">
+        <getter>
+          return this._scale;
+        </getter>
+        <setter>
+          <![CDATA[
+            if (!(val instanceof Array))
+              return false;
+            
+            var elem = document.getAnonymousElementByAttribute(this,
+                                                               'anonid',
+                                                               'scale');
+            elem.max = val.length-1;
+            this._scale = val;
+            return true;
+          ]]>
+        </setter>
+      </property>
+      <property name="value">
+        <getter>
+          <![CDATA[
+            if (this._scale == null)
+              return -1;
+
+            var elem = document.getAnonymousElementByAttribute(this,
+                                                               'anonid',
+                                                               'scale');
+            return this._scale[elem.value];
+          ]]>
+        </getter>
+        <setter>
+          <![CDATA[
+            if (this._scale == null)
+              return false;
+            
+            var index = -1;
+            this._scale.forEach(function(v,i) {
+              if (v == val)
+                index = i;
+            });
+            if (index == -1)
+              return false;
+            var elem = document.getAnonymousElementByAttribute(this,
+                                                               'anonid',
+                                                               'scale');
+            if (elem.value == index && index != 0)
+              elem.value = index-1;
+            else if (elem.value == index)
+              elem.value = index+1;
+
+            elem.value = index;
+            return this.value;
+          ]]>
+        </setter>
+      </property>
+      <constructor>
+        <![CDATA[
+        ]]>
+      </constructor>
+    </implementation>
+    <handlers>
+      <handler event="change">
+        <![CDATA[
+          var elem = document.getAnonymousElementByAttribute(this,
+                                                             'anonid',
+                                                             'label');
+          elem.setAttribute('value',this.value);
+        ]]>
+      </handler>
+    </handlers>
+  </binding>
+
+</bindings>

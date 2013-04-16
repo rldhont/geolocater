@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+/****** BEGIN LICENSE BLOCK *****
+ Version: MPL 1.1/GPL 2.0/LGPL 2.1
+
+ The contents of this file are subject to the Mozilla Public License Version
+ 1.1 (the "License"); you may not use this file except in compliance with
+ the License. You may obtain a copy of the License at 
+ http://www.mozilla.org/MPL/
+
+ Software distributed under the License is distributed on an "AS IS" basis,
+ WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ for the specific language governing rights and limitations under the
+ License.
+
+ The Original Code is 3liz code,
+
+ The Initial Developer of the Original Code is René-Luc D'Hont rldhont@3liz.com
+ Portions created by the Initial Developer are Copyright (C) 2009
+ the Initial Developer. All Rights Reserved.
+
+ Some Parts of the Code are taken from the original Mozilla Firefox and/or XulRunner Code. 
+ If these parts were subject to a licence not in compliance with the License, 
+ it is not intentionnal and please contact the Initial Developer.
+
+ Alternatively, the contents of this file may be used under the terms of
+ either of the GNU General Public License Version 2 or later (the "GPL"),
+ or the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+ in which case the provisions of the GPL or the LGPL are applicable instead
+ of those above. If you wish to allow use of your version of this file only
+ under the terms of either the GPL or the LGPL, and not to allow others to
+ use your version of this file under the terms of the MPL, indicate your
+ decision by deleting the provisions above and replace them with the notice
+ and other provisions required by the GPL or the LGPL. If you do not delete
+ the provisions above, a recipient may use your version of this file under
+ the terms of any one of the MPL, the GPL or the LGPL.
+
+ ***** END LICENSE BLOCK ***** */
+-->
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://geolocater/skin/geolocater.css" type="text/css"?>
+<?xml-stylesheet href="chrome://geolocater/content/bindings.css" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://geolocater/locale/geolocater.dtd">
+
+<window id="geolocater"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  title="&window.main.title;"
+  onload="init();"
+  onunload="kill();"
+  onkill="kill();"
+  width="600" height="500">
+
+  <script src="chrome://global/content/globalOverlay.js"/>
+  <script type="application/x-javascript" src="geolocater.js"/>
+
+  <stringbundleset>
+   <stringbundle id="geolocater-string-bundle" src="chrome://geolocater/locale/geolocater.properties"/>
+ </stringbundleset>
+
+  <commandset id="guiCommands" events="select" commandupdater="true"
+    oncommandupdate="guiController.onCommandUpdate()"
+    oncommand="guiController.doCommand(event.target.id)">
+    <command id="cmd_new"/>
+    <command id="cmd_edit"/>
+    <command id="cmd_del"/>
+    <command id="cmd_cancel" hidden="true"/>
+    <command id="cmd_switch" hidden="true" type="go"/>
+    <command id="cmd_save" hidden="true"/>
+    <command id="cmd_move"/>
+    <command id="cmd_pan_map" checked="true"/>
+    <command id="cmd_zoom_in"/>
+    <command id="cmd_zoom_out"/>
+    <command id="cmd_zoom_max"/>
+    <command id="cmd_zoom_ext"/>
+    <command id="cmd_zoom_sel"/>
+    <command id="cmd_search"/>
+  </commandset>
+
+  <broadcasterset>
+    <broadcaster id="cast_search"/>
+    <broadcaster id="cast_sel" hidden="true"/>
+    <broadcaster id="cast_new" class="new-loc" 
+      label="&cast.loc_new.label;"/>
+    <broadcaster id="cast_edit" class="edit-loc"
+      label="&cast.loc_edit.label;"/>
+  </broadcasterset>
+
+  <toolbox>
+    <menubar>
+      <menu label="&menu.base.label;">
+        <menupopup id="geolocater-base-menu-popup">
+          <menuitem id="geolocater-base-menu-osm"
+            label="OpenStreetMap" value="osm"
+            oncommand="geolocaterChangeBaselayer(this);"
+            type="radio" name="baselayers" checked="true"
+            persist="checked"/>
+          <menuitem id="geolocater-base-menu-mapquest"
+            label="Open MapQuest" value="mapquest"
+            oncommand="geolocaterChangeBaselayer(this);"
+            type="radio" name="baselayers"
+            persist="checked"/>
+        </menupopup>
+      </menu>
+      <menu label="&menu.loc.label;">
+        <menupopup>
+          <menuitem command="cmd_new" label="&item.loc_new.label;"/>
+          <menuitem command="cmd_edit" label="&item.loc_edit.label;"/>
+          <menuitem command="cmd_del" label="&item.loc_del.label;"/>
+          <menuseparator/>
+          <menuitem command="cmd_cancel" label="&item.loc_cancel.label;"/>
+          <menuitem command="cmd_switch" label="&item.loc_switch.label;"/>
+          <menuitem command="cmd_save" label="&item.loc_save.label;"/>
+        </menupopup>
+      </menu>
+    </menubar>
+    <toolbar>
+      <toolbarbutton command="cmd_pan_map"
+        tooltiptext="&button.pan_map.text;" class="pan-map"/>
+      <toolbarbutton command="cmd_zoom_in"
+        tooltiptext="&button.zoom_in.text;" class="zoom-in"/>
+      <toolbarbutton command="cmd_zoom_out"
+        tooltiptext="&button.zoom_out.text;" class="zoom-out"/>
+      <toolbarbutton command="cmd_zoom_ext"
+        tooltiptext="&button.zoom_ext.text;" class="zoom-extent"/>
+      <toolbarbutton command="cmd_zoom_sel"
+        tooltiptext="&button.zoom_sel.text;" class="zoom-select"/>
+      <spacer flex="1"/>
+      <toolbarbutton command="cmd_new"
+        tooltiptext="&button.loc_new.text;" class="new-loc"/>
+      <toolbarbutton command="cmd_edit" 
+        tooltiptext="&button.loc_edit.text;" class="edit-loc"/>
+      <toolbarbutton command="cmd_del"
+        tooltiptext="&button.loc_del.text;" class="del-loc"/>
+      <toolbarbutton command="cmd_cancel"
+        tooltiptext="&button.loc_cancel.text;" class="cancel-loc"/>
+      <toolbarbutton command="cmd_switch"
+        tooltiptext="&button.loc_switch.text;" class="switch-loc"/>
+      <toolbarbutton command="cmd_save"
+        tooltiptext="&button.loc_save.text;" class="save-loc"/>
+    </toolbar>
+  </toolbox>
+
+  <deck id="geolocater-deck" flex="1">
+    <hbox flex="1" align="stretch">
+      <iframe id="geolocater-map-frame"
+        class="map-frame"
+        type="content" src="about:blank"
+        flex="1"/>
+      <splitter/>
+      <vbox width="300" minwidth="300" maxwidth="500">
+        <groupbox>
+          <caption label="&caption.loc_used.label;"/>
+          <menulist id="geolocater-menu-list"
+            disabled="true"
+            onselect="geolocaterOnMenuSelect();"
+            value="geoloc://www.google.com/loc/json">
+            <menupopup id="geolocater-menu-popup"
+              datasources="prefs" ref="*" querytype="geolocater">
+              <template>
+                <query/>
+                <action>
+                  <menuitem uri="?" label="?name"
+                    value="geoloc://localhost/?id"/>
+                </action>
+              </template>
+              <menuitem id="geolocater-menuitem-googleservice"
+                label="&item.googserv.label;"
+                value="geoloc://www.google.com/loc/json"/>
+            </menupopup>
+          </menulist>
+        </groupbox>
+        <groupbox flex="1">
+          <caption label="&caption.loc_yours.label;"/>
+          <radiogroup id="geolocater-list-radio"
+            oncommand="geolocaterOnRadioSelect();"
+            flex="1">
+            <richlistbox id="geolocater-list-box"
+              disabled="true"
+              seltype="single"
+              onselect="geolocaterSelectItem();"
+              flex="1"
+              datasources="prefs" ref="*" querytype="geolocater">
+              <template>
+                <query/>
+                <action>
+                  <richlistitem uri="?">
+                    <radio value="geoloc://localhost/?id"/>
+                    <label value="?name" crop="end"/>
+                  </richlistitem>
+                </action>
+              </template>
+              <richlistitem id="googleservice">
+                <radio value="geoloc://www.google.com/loc/json"/>
+                <label value="&item.googserv.label;" crop="end"/>
+              </richlistitem>
+            </richlistbox>
+        </radiogroup>
+        </groupbox>
+        <geolocateraddress id="geolocater-select-address"
+          label="&address.sel.label;"/>
+      </vbox>
+    </hbox>
+    <vbox>
+      <toolbox id="geolocater-search-toolbox" 
+        observes="cast_search">
+        <toolbar align="center">
+          <toolbarbutton command="cmd_move" class="move-loc"
+            tooltiptext="&button.loc_move.text;"/>
+          <textbox id="geolocater-search-textbox"
+            emptytext="&button.loc_search.text;"
+            flex="1"/>
+          <toolbarbutton command="cmd_search" class="search-loc"
+            tooltiptext="&button.loc_search.text;"/>
+        </toolbar>
+      </toolbox>
+      <groupbox flex="1">
+        <caption id="geolocater-edit-caption"
+          observes="cast_new"/>
+        <hbox flex="1" align="stretch">
+          <iframe id="geolocater-edit-frame"
+            class="map-frame"
+            type="content" src="about:blank"
+            flex="1"/>
+          <splitter id="geolocater-search-splitter"
+            observes="cast_sel"/>
+          <vbox id="geolocater-search-infobox"
+            observes="cast_sel"
+            width="300" minwidth="300" maxwidth="500">
+            <groupbox flex="1">
+              <caption label="&caption.loc_edit.label;"/>
+              <hbox align="center">
+                <label value="&name.loc_edit.label;"/>
+                <textbox id="geolocater-edit-name" flex="1"
+                  oninput="guiController.onCommandUpdate();"/>
+              </hbox>
+              <geolocateraccuracy id="geolocater-edit-accuracy"
+                onchange="geolocaterUpdateAcc();"/>
+              <geolocateraddress id="geolocater-edit-address" 
+                flex="1" editable="true" label="&address.edit.label;"/>
+            </groupbox>
+          </vbox>
+        </hbox>
+      </groupbox>
+    </vbox>
+  </deck>
+</window>

@@ -1,0 +1,12 @@
+<!ENTITY accuracy.name.label "Précision:">
+<!ENTITY accuracy.unit.label "mètres">
+
+<!ENTITY address.caption.label "Adresse">
+<!ENTITY address.streetNumber  "Numéro :">
+<!ENTITY address.street        "Voie :">
+<!ENTITY address.premises      "Précisions :">
+<!ENTITY address.postalCode    "Code postal :">
+<!ENTITY address.city          "Ville :">
+<!ENTITY address.county        "Département :">
+<!ENTITY address.region        "Région :">
+<!ENTITY address.country       "Pays :">

@@ -1,0 +1,45 @@
+<!ENTITY window.main.title   "Geolocater">
+<!ENTITY window.main.text   "Géolocalisez-vous où vous le désirez">
+
+<!ENTITY item.googserv.label "Service Google">
+<!ENTITY item.manage.label   "Gérer">
+
+<!ENTITY menu.base.label   "Fonds de plan">
+<!ENTITY menu.loc.label    "Géolocalisations">
+
+<!ENTITY item.loc_new.label    "Nouvelle">
+<!ENTITY item.loc_edit.label   "Modifier">
+<!ENTITY item.loc_del.label    "Supprimer">
+<!ENTITY item.loc_cancel.label "Annuler">
+<!ENTITY item.loc_switch.label "Basculer">
+<!ENTITY item.loc_save.label   "Enregistrer">
+
+<!ENTITY button.pan_map.text  "Déplacer la carte à la souris">
+<!ENTITY button.zoom_in.text  "Zoom avant avec la souris">
+<!ENTITY button.zoom_out.text "Zoom arrière avec la souris">
+<!ENTITY button.zoom_ext.text "Zoom sur l'emprise des géolocalisations">
+<!ENTITY button.zoom_sel.text "Zoom sur la géolocalisation sélectionnée">
+
+<!ENTITY button.loc_new.text    "Créer une géolocalisation">
+<!ENTITY button.loc_edit.text   "Modifier la géolocalisation sélectionnée">
+<!ENTITY button.loc_del.text    "Supprimer la géolocalisation sélectionnée">
+<!ENTITY button.loc_cancel.text "Annuler">
+<!ENTITY button.loc_switch.text "Basculer de la recherche à la sélection">
+<!ENTITY button.loc_save.text   "Enregistrer">
+
+<!ENTITY button.loc_move.text   "Déplacer la géolocalisation au centre de la carte">
+<!ENTITY button.loc_search.text "Rechercher un lieu où vous souhaitez être géolocalisé">
+
+<!ENTITY cast.loc_new.label "Nouvelle Géolocalisation">
+<!ENTITY cast.loc_edit.label "Modifier la Géolocalisation">
+
+<!ENTITY caption.loc_used.label  "Géolocalisation utilisée">
+<!ENTITY caption.loc_yours.label "Vos Géolocalisations">
+<!ENTITY caption.loc_edit.label  "Infos de Géolocalisation">
+
+<!ENTITY name.loc_edit.label "Nom :">
+
+<!ENTITY address.sel.label  "Adresse de la sélection">
+<!ENTITY address.edit.label "Adresse de la géolocalisation">
+
+<!ENTITY notification.loc_choose.label  "Choisissez une localisation :">

@@ -1,0 +1,15 @@
+resource geolocater             modules/
+content  geolocater             content/geolocater/
+skin     geolocater    default  skin/classic/
+locale   geolocater    en-US    locale/en-US/
+locale   geolocater    fr-FR    locale/fr-FR/
+
+component {304ca79d-e830-45e4-b12e-7bbab2aa2496} components/geoloc-protocolhandler.js
+contract @mozilla.org/network/protocol;1?name=geoloc {304ca79d-e830-45e4-b12e-7bbab2aa2496}
+category profile-after-change GeolocProtocolHandler @mozilla.org/network/protocol;1?name=geoloc
+
+component {c7b92f98-c7f1-4f55-961f-607430bca757} components/geoloc-queryprocessor.js
+contract @mozilla.org/xul/xul-query-processor;1?name=geolocater {c7b92f98-c7f1-4f55-961f-607430bca757}
+
+#Firefox
+overlay chrome://browser/content/browser.xul chrome://geolocater/content/browserOverlay.xul

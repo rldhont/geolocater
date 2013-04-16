@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>geolocater@3liz.com</em:id>
+    <em:version>1.7</em:version>
+    <em:type>2</em:type>
+    <em:unpack>true</em:unpack>
+
+    <!-- Target Application this extension can install into, 
+         with minimum and maximum supported versions. --> 
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>9.0</em:minVersion>
+        <em:maxVersion>13.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+   
+    <!-- Front End MetaData -->
+    <em:name>Geolocater</em:name>
+    <em:description>Geolocate you where you want</em:description>
+
+    <em:localized>
+      <Description>
+        <em:locale>fr-FR</em:locale>
+        <em:name>Geolocater</em:name>
+        <em:description>Géolocalisez vous où vous le désirez</em:description>
+      </Description>
+    </em:localized>
+
+    <em:creator>3Liz</em:creator>
+    <em:developer>D'Hont René-Luc</em:developer>
+
+    <em:optionsURL>chrome://geolocater/content/geolocater.xul</em:optionsURL>
+    <em:optionsType>3</em:optionsType>
+  </Description>
+</RDF>

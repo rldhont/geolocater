@@ -1,0 +1,45 @@
+<!ENTITY window.main.title "Geolocater">
+<!ENTITY window.main.text  "Geolocate you where you want">
+
+<!ENTITY item.googserv.label "Google service">
+<!ENTITY item.manage.label   "Manage">
+
+<!ENTITY menu.base.label   "Base layers">
+<!ENTITY menu.loc.label    "Geolocations">
+
+<!ENTITY item.loc_new.label    "New">
+<!ENTITY item.loc_edit.label   "Edit">
+<!ENTITY item.loc_del.label    "Delete">
+<!ENTITY item.loc_cancel.label "Cancel">
+<!ENTITY item.loc_switch.label    "Switch">
+<!ENTITY item.loc_save.label   "Save">
+
+<!ENTITY button.pan_map.text  "Move map with the mouse">
+<!ENTITY button.zoom_in.text  "Zoom in with the mouse">
+<!ENTITY button.zoom_out.text "Zoom out with the mouse">
+<!ENTITY button.zoom_ext.text "Zoom on the geolocations' extent">
+<!ENTITY button.zoom_sel.text "Zoom on the selected geolocation">
+
+<!ENTITY button.loc_new.text    "Create geolocation">
+<!ENTITY button.loc_edit.text   "Edit selected geolocation">
+<!ENTITY button.loc_del.text    "Delete selected geolocation">
+<!ENTITY button.loc_cancel.text "Cancel">
+<!ENTITY button.loc_switch.text "Toggle search mode">
+<!ENTITY button.loc_save.text   "Save">
+
+<!ENTITY button.loc_move.text   "Move geolocation to the map center">
+<!ENTITY button.loc_search.text "Search for a place where you want to be geolocated">
+
+<!ENTITY cast.loc_new.label "New Geolocation">
+<!ENTITY cast.loc_edit.label "Edit Geolocation">
+
+<!ENTITY caption.loc_used.label  "Geolocation used">
+<!ENTITY caption.loc_yours.label "Your Geolocations">
+<!ENTITY caption.loc_edit.label  "Geolocation info">
+
+<!ENTITY name.loc_edit.label "Name:">
+
+<!ENTITY address.sel.label  "Address selection">
+<!ENTITY address.edit.label "Geolocation address">
+
+<!ENTITY notification.loc_choose.label  "Choose a location :">
