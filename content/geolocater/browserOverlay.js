@@ -41,7 +41,7 @@ var geolocater = {};
 Components.utils.import("resource://geolocater/geolocater-prefs.js");
 
 function _addLocalToMenu(aId, aLoc) {
-  var item = document.createElement("menuitem");
+  let item = document.createElement("menuitem");
   item.setAttribute('label',aLoc.name);
   item.setAttribute('id','geolocater-browser-menuitem-'+aId);
   item.setAttribute('type','radio');
@@ -50,12 +50,12 @@ function _addLocalToMenu(aId, aLoc) {
   item.setAttribute('oncommand',"geolocater.changeProvider('"+aId+"');");
   if (GeolocaterPrefs.uri == ('geoloc://localhost/'+aId))
     item.setAttribute('checked',true);
-  var popup = document.getElementById("geolocater-browser-menupopup");
+  let popup = document.getElementById("geolocater-browser-menupopup");
   popup.appendChild(item);
 }
 
 function _addLocalToAppMenu(aId, aLoc) {
-  var item = document.createElement("menuitem");
+  let item = document.createElement("menuitem");
   item.setAttribute('label',aLoc.name);
   item.setAttribute('id','geolocater-browser-appmenuitem-'+aId);
   item.setAttribute('type','radio');
@@ -64,7 +64,7 @@ function _addLocalToAppMenu(aId, aLoc) {
   item.setAttribute('oncommand',"geolocater.changeProvider('"+aId+"');");
   if (GeolocaterPrefs.uri == ('geoloc://localhost/'+aId))
     item.setAttribute('checked',true);
-  var popup = document.getElementById("geolocater-browser-appmenupopup");
+  let popup = document.getElementById("geolocater-browser-appmenupopup");
   popup.appendChild(item);
 }
 
@@ -73,30 +73,35 @@ function _onChangeUri(aEvent) {
   //var value = Application.prefs.get(aEvent.data).value;
   let value = aEvent.data;
   let menu = document.getElementById("geolocater-browser-menu");
-  let count = menu.itemCount;
-  for (let i=2; i<count; i++) {
-    let item = menu.getItemAtIndex(i);
-    if(item.tagName == 'menuitem' && 
-        item.value == value) {
-      item.setAttribute('checked',true);
+  if ( menu ) {
+    let count = menu.itemCount;
+    for (let i=2; i<count; i++) {
+      let item = menu.getItemAtIndex(i);
+      if(item.tagName == 'menuitem' && 
+         item.value == value) {
+        item.setAttribute('checked',true);
+      }
     }
   }
   menu = document.getElementById("geolocater-browser-appmenu");
-  count = menu.itemCount;
-  for (let i=2; i<count; i++) {
-    let item = menu.getItemAtIndex(i);
-    if(item.tagName == 'menuitem' && 
-        item.value == value) {
-      item.setAttribute('checked',true);
+  if ( menu ) {
+    count = menu.itemCount;
+    for (let i=2; i<count; i++) {
+      let item = menu.getItemAtIndex(i);
+      if(item.tagName == 'menuitem' && 
+         item.value == value) {
+        item.setAttribute('checked',true);
+      }
     }
   }
 }
 
 function _onChangeLocalhost(aEvent) {
   let menu = document.getElementById("geolocater-browser-menu");
-  while (menu.itemCount != 3) {
-    menu.removeItemAt(menu.itemCount-1);
-  }
+  if ( menu )
+    while (menu.itemCount != 3) {
+      menu.removeItemAt(menu.itemCount-1);
+    }
   let localhost = GeolocaterPrefs.localhost;
   if (localhost == '')
     localhost = '{}';
@@ -112,9 +117,10 @@ function _onChangeLocalhost(aEvent) {
   }
 
   menu = document.getElementById("geolocater-browser-appmenu");
-  while (menu.itemCount != 3) {
-    menu.removeItemAt(menu.itemCount-1);
-  }
+  if ( menu )
+    while (menu.itemCount != 3) {
+      menu.removeItemAt(menu.itemCount-1);
+    }
   first = true;
   for (let id in localhost) {
     if (first) {

@@ -4,7 +4,7 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
     <em:id>geolocater@3liz.com</em:id>
-    <em:version>1.7</em:version>
+    <em:version>1.7.1</em:version>
     <em:type>2</em:type>
     <em:unpack>true</em:unpack>
 
