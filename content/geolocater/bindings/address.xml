@@ -270,7 +270,6 @@
           req.send(null);
           if (req.status != 200)
             return '';
-          alert(req.responseText);
 
           var xmlDoc = req.responseXML;
           var nsResolver = xmlDoc.createNSResolver( xmlDoc.ownerDocument == null ? xmlDoc.documentElement : xmlDoc.ownerDocument.documentElement);
@@ -519,7 +518,6 @@
           req.send(null);
           if (req.status != 200)
             return '';
-          alert(req.responseText);
 
           var xmlDoc = req.responseXML;
           var nsResolver = xmlDoc.createNSResolver( xmlDoc.ownerDocument == null ? xmlDoc.documentElement : xmlDoc.ownerDocument.documentElement);
